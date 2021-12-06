@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const Campsite = require('./models/campsite');
 
@@ -30,41 +31,46 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/campsites', async (req, res) => {
+app.get('/campsites', catchAsync(async (req, res) => {
     const campsites = await Campsite.find({});
     res.render('campsites/index', {campsites});
-});
+}));
 
 app.get('/campsites/new', (req, res) => {
     res.render('campsites/new');
 });
 
-app.post('/campsites', async (req, res) => {
+app.post('/campsites', catchAsync(async (req, res, next) => {
     const campsite = new Campsite(req.body.campsite);
     await campsite.save();
-    res.redirect(`/campsites/${campsite._id}`)
-})
+    res.redirect(`/campsites/${campsite._id}`);
+}))
 
-app.get('/campsites/:id', async (req, res) => {
+app.get('/campsites/:id', catchAsync(async (req, res) => {
     const campsite = await Campsite.findById(req.params.id);
     res.render('campsites/show', { campsite });
-});
+}));
 
-app.get('/campsites/:id/edit', async(req, res) => {
+app.get('/campsites/:id/edit', catchAsync(async(req, res) => {
     const campsite = await Campsite.findById(req.params.id);
     res.render('campsites/edit', { campsite });
-})
+}))
 
-app.put('/campsites/:id', async(req, res) => {
+app.put('/campsites/:id', catchAsync(async(req, res) => {
     const {id} = req.params;
     const campsite = await Campsite.findByIdAndUpdate(id, { ...req.body.campsite });
     res.redirect(`/campsites/${campsite._id}`);
-})
+}))
 
-app.delete('/campsites/:id', async (req, res) => {
+app.delete('/campsites/:id', catchAsync(async (req, res) => {
     const {id} = req.params;
     await Campsite.findByIdAndDelete(id);
     res.redirect('/campsites');
+}))
+
+//error handler
+app.use((err, req, res, next) => {
+    res.send('Something went wrong!!!');
 })
 
 app.listen(3000, () => {
