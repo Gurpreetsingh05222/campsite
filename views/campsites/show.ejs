@@ -13,18 +13,19 @@
           </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-muted">
-            <%= campsite.location%>
-          </li>
+          <li class="list-group-item text-muted"><%= campsite.location%></li>
+          <li class="list-group-item">Made by: <%= campsite.author.username%></li>
           <li class="list-group-item">$<%= campsite.price%>/night</li>
           <li class="list-group-item">Vestibulum at eros</li>
         </ul>
+        <% if(currentUser && campsite.author.equals(currentUser)) {%> 
         <div class="card-body">
           <a class="card-link btn btn-info" href="/campsites/<%= campsite._id %>/edit">Edit</a>
           <form class="d-inline" action="/campsites/<%= campsite._id %>?_method=DELETE" method="POST">
             <button class="btn btn-danger">Delete</button>
           </form>
         </div>
+        <% } %> 
         <div class="card-footer">2 days ago</div>
       </div>
     </div>
