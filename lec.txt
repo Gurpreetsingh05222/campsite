@@ -3,3 +3,4 @@
 packages included - 
 ejs-mate -> for layouts, partials etc
 method-override -> to specify delete, put, post request for form submission
+joi -> to validate the user input on server side, have a vaildation schema
