@@ -1,4 +1,5 @@
 514
+skipped-> delete upload images functionality(535)
 
 packages included - 
 ejs-mate -> for layouts, partials etc
@@ -7,3 +8,4 @@ joi -> to validate the user input on server side, have a vaildation schema
 passport -> for authentication and authorization
 multer -> to upload multiple files
 dotenv -> to configure the apikey and cloud name to save images to cloud
+mapbox- for maps
