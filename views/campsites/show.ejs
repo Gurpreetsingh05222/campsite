@@ -36,7 +36,6 @@
           <li class="list-group-item text-muted"><%= campsite.location%></li>
           <li class="list-group-item">Made by: <%= campsite.author.username%></li>
           <li class="list-group-item">$<%= campsite.price%>/night</li>
-          <li class="list-group-item">Vestibulum at eros</li>
         </ul>
         <% if(currentUser && campsite.author.equals(currentUser)) {%> 
         <div class="card-body">
@@ -50,7 +49,7 @@
       </div>
     </div>
     <div class="col-6">
-      <div id="map" style='width: 600px; height: 300px;'></div>
+      <div id="map" style='width: 100%; height: 300px;'></div>
       <% if(currentUser) {%> 
       <h2>Leave a Review</h2>
       <form action="/campsites/<%= campsite._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -78,7 +77,9 @@
       </form>
       <% } %> 
       <% for(let review of campsite.reviews) {%>
-        <div class="card mb-3">
+        <div class="card mb-3 mt-3">
+          <h2 class="text-center">Reviews</h2>
+          <hr>
           <div class="card-body">
             <h5 class="card-title"><%= review.author.username %></h5>
             <p class="starability-result" data-rating="<%=review.rating%>">Rated: <%=review.rating%> stars</p>

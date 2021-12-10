@@ -1,6 +1,7 @@
 const Campsite = require('../models/campsite');
 const Review = require('../models/review');
 
+//create a review
 module.exports.createReview = async(req, res) => {
     const campsite = await Campsite.findById(req.params.id);
     const review = new Review(req.body.review);
@@ -12,6 +13,7 @@ module.exports.createReview = async(req, res) => {
     res.redirect(`/campsites/${campsite._id}`);
 }
 
+//delete a review
 module.exports.deleteReview = async (req, res) => {
     const {id, reviewId} = req.params;
     await Campsite.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});

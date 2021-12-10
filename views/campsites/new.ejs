@@ -13,7 +13,6 @@
                 <input class="form-control" type="text" id="location" name="campsite[location]" required>
                 <div class="valid-feedback">Looks Good!</div>
             </div>
-            <input type="file" name="image" id="" multiple>
             <!-- <div class="mb-3">
                 <label class="form-label" for="image">Image Url</label>
                 <input class="form-control" type="text" id="image" name="campsite[image]" required>
@@ -34,9 +33,13 @@
                 <div class="valid-feedback">Looks Good!</div>
             </div>
             <div class="mb-3">
+                <label class="form-label" for="image">Image</label>
+                <input class="form-control" type="file" name="image" id="image" multiple>
+            </div>
+            <div class="mb-3">
                 <button class="btn btn-success">Add Campsite</button>
             </div>
         </form>
-        <a href="/campsites">All Campsites</a>  
+        <a class="btn btn-info text-center mb-3" href="/campsites">Back to Campsites</a>  
     </div>
 </div>

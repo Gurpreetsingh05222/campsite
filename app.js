@@ -18,6 +18,7 @@ const userRoutes = require('./routes/users');
 const campsiteRoutes = require('./routes/campsites');
 const reviewRoutes = require('./routes/reviews');
 
+//database connection
 mongoose.connect('mongodb://localhost:27017/camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -29,12 +30,13 @@ db.once('open', () => {
     console.log('Database connected');
 })
 
+//set view engine and ejs for partials
 const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+//middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,15 +68,17 @@ app.use((req, res, next) => {
     next();
 })
 
+//routes for app
 app.use('/', userRoutes);
 app.use('/campsites', campsiteRoutes)
 app.use('/campsites/:id/reviews', reviewRoutes)
 
+//home route
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-
+//route for not found
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found!', 404));
 })
@@ -86,6 +90,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', {err});
 })
 
+//server port
 app.listen(3000, () => {
     console.log("Running on port 3000");
 });
